@@ -3,11 +3,19 @@
 @page {
      /* change the margins as you want them to be. */
 }
+@font-face {
+  font-family: Poppins;
+  src: url(/assets/Poppins-Regular.ttf);
+}
+@font-face {
+  font-family: SourceSans;
+  src: url(/assets/SourceSansPro-Regular.ttf);
+}
 body {
   background-color: #DDD;
-  font-size: 15px;
+  font-size: 14.5px;
   margin: 0;
-  font-family: Arial, Helvetica, sans-serif;
+  font-family: SourceSans;
 }
 #root {
   position: relative;
@@ -16,6 +24,8 @@ body {
   margin: auto;
   background-color: white;
   overflow: hidden;
+  background-image: url('/assets/mountain-landscape.jpg');
+  background-position: bottom;
 }
 </style>
 <div id="root"></div>

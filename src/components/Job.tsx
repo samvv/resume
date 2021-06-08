@@ -1,5 +1,6 @@
 
 import styled from "@emotion/styled"
+import {dateColor} from "../theme"
 
 const JobWrapper = styled.div`
 margin: 1em;
@@ -11,7 +12,7 @@ margin-bottom: 0;
 
 const JobPeriod = styled.div`
 text-transform: uppercase;
-color: #AAA;
+color: ${dateColor};
 font-size: 0.8em;
 `
 

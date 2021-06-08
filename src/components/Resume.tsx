@@ -1,24 +1,26 @@
 
 import styled from "@emotion/styled";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome"
-import { faMapMarkerAlt, faEnvelope, faMobileAlt } from "@fortawesome/free-solid-svg-icons"
+import { faMapMarkerAlt, faEnvelope, faMobileAlt, faGlasses, faBriefcase, faWrench, faStamp, faComments } from "@fortawesome/free-solid-svg-icons"
+import mountainsImg from "../../assets/mountain-landscape.jpg"
 
 import Job from "./Job"
 import Link from "./Link"
 import Section from "./Section"
 import { IconProp } from "@fortawesome/fontawesome-svg-core";
+import {dateColor, defaultHeaderColor, fullNameColor, sectionBackgroundColor} from "../theme";
 
-const Fullname = styled.h1`
+const FullName = styled.h1`
 font-weight: bold;
-color: #232020;
+color: ${fullNameColor};
 margin: 0;
 text-transform: uppercase;
 `
 
-const Title = styled.h2`
+const JobTitle = styled.h2`
 font-weight: bold;
 font-size: 1.2em;
-color: gray;
+color: ${defaultHeaderColor};
 margin: 0.5em;
 `
 
@@ -33,7 +35,7 @@ const AddressList = ({ children }: AddressListProps) => (
 )
 
 const AddressWrapper = styled.tr`
-color: #888;
+color: ${defaultHeaderColor};
 margin: 0.5em 0;
 font-size: 0.9em;
 `
@@ -50,10 +52,24 @@ const Address = ({ icon, children }: AddressProps) => (
   </AddressWrapper>
 );
 
-const ProfileWrapper = styled.div`
+const HeaderWrapper = styled.div`
+
+position: relative;
 padding: 1em 3em;
-background-color: #FFEE88;
-border-bottom: 1px solid #232020;
+z-index: 0;
+background-color: rgba(0,0,0,0.3);
+
+&:before {
+  content: "";
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  z-index: -1;
+  background-position: center;
+  filter: brightness(70%);
+}
 `
 
 const Columns = styled.div`
@@ -87,28 +103,28 @@ export interface ProfileProps {
   cellPhone?: string;
 }
 
-const Profile = ({
+const Header = ({
   address,
   fullName,
   email,
   title,
   cellPhone,
 }: ProfileProps) => (
-  <ProfileWrapper>
-  <Columns style={{ alignItems: 'center' }}>
-    <ProfileFirstColumn>
-      <Fullname>{fullName}</Fullname>
-      <Title>{title}</Title>
-    </ProfileFirstColumn>
-    <div>
-      <AddressList>
-        <Address icon={faMapMarkerAlt}>{address}</Address>
-        <Address icon={faEnvelope}>{email}</Address>
-        <Address icon={faMobileAlt}>{cellPhone}</Address>
-      </AddressList>
-    </div>
-  </Columns>
-  </ProfileWrapper>
+  <HeaderWrapper>
+    <Columns style={{ alignItems: 'center' }}>
+      <ProfileFirstColumn>
+        <FullName>{fullName}</FullName>
+        <JobTitle>{title}</JobTitle>
+      </ProfileFirstColumn>
+      <div>
+        <AddressList>
+          <Address icon={faMapMarkerAlt}>{address}</Address>
+          <Address icon={faEnvelope}>{email}</Address>
+          <Address icon={faMobileAlt}>{cellPhone}</Address>
+        </AddressList>
+      </div>
+    </Columns>
+  </HeaderWrapper>
 )
 
 const Introduction = styled.div`
@@ -118,21 +134,21 @@ padding: 1em;
 const List = styled.ul`
 font-size: 0.9em;
 padding: 0;
-padding-left: 2em;
 `
 
 const SkillList = styled(List)`
 `
 
 const ListItem = styled.li`
-margin: 0.3em 0;
+margin: 0.3em 0 0.3em 2em;
 `
 
 const ProjectWrapper = styled.div`
-padding: 1em;
+padding: 0.5em;
 font-size: 0.9em;
 `
-const ProjectTitle = styled.h4`
+
+const Subtitle = styled.h4`
 margin: 0;
 font-size: 1.2em;
 font-weight: bold;
@@ -144,8 +160,16 @@ margin: 0.3em 0;
 `
 
 const Footnote = styled.div`
+position: absolute;
+transform: translateY(-50%);
+bottom: 0;
 padding: 0.5em;
 font-size: 0.8em;
+`
+
+const CertDate = styled.em`
+display: block;
+color: ${dateColor};
 `
 
 interface ProjectProps {
@@ -154,9 +178,10 @@ interface ProjectProps {
   children: React.ReactNode;
 }
 
+
 const Project = ({ title, children, url }: ProjectProps) => (
   <ProjectWrapper>
-    <ProjectTitle>{title}</ProjectTitle>
+    <Subtitle>{title}</Subtitle>
     {children}
     {url !== undefined ? <ProjectLink to={url} /> : null}
   </ProjectWrapper>
@@ -164,14 +189,14 @@ const Project = ({ title, children, url }: ProjectProps) => (
 
 export const Resume = () => (
   <>
-    <Profile
+    <Header
         fullName="Sam Vervaeck"
         title="Software developer"
         email="samvv@pm.me"
         address="Mechelen, Belgium"
         cellPhone="+32474054981"
         />
-    <Columns>
+    <Columns style={{ backgroundColor: sectionBackgroundColor }}>
       <FirstColumn>
         <Introduction>
           I'm a highly motivated computer programmer with a big interest in how
@@ -180,14 +205,14 @@ export const Resume = () => (
           languages and environments, including the web and functional
           programming languages.
         </Introduction>
-        <Section title="Experience">
+        <Section icon={faBriefcase} title="Experience">
           <Job title="Open-source software developer" period="2015-present">
             Creation and maintenance of many different projects that are mainly
             hosted at GitHub. Primary focus on a new programming langugage for
-            efficient app development called <Link to="https://github.com/boltlang/Bolt">Bolt</Link>.
+            efficient app development called Bolt.
           </Job>
           <Job title="Junior software developer" period="August-September 2018">
-            Development of a complete web platform in a team of three at
+            Development of a complete web platform in a total team of three at
             IdentityBuilding. Recommended the React frontend and helped writing the
             backend using Django in Python. Took up the task of very quickly
             importing and processing large open datasets from the Belgian
@@ -205,20 +230,20 @@ export const Resume = () => (
             and to speed up the cleaning process. 
           </Job>
         </Section>
-        <Section title="Skills">
+        <Section icon={faGlasses} title="Skills">
           <SkillList>
             <ListItem>Profound skills in creating user interfaces with ReactJS, including the new hooks system introduced in v16.8.0</ListItem>
             <ListItem>Web development using NodeJS, MongoDB and Express</ListItem>
             <ListItem>Systems programming and game development in C++ and Rust. Fluent use of template metaprogramming facilities in C++ and type traits in Rust.</ListItem>
-            <ListItem>Basic fluency in Haskell: using and defining monads, working with various packages, creating new typeclasses</ListItem> 
-            <ListItem>Basic knowledge of Elixir/Erlang: using the Phoenix framework and creating simple RESTful applications using the Maru microframework</ListItem>
+            <ListItem>Basic fluency in Haskell: using and defining monads, working with various packages, creating new typeclasses. Basic knowledge of category theory.</ListItem> 
+            <ListItem>Some knowledge of Elixir/Erlang: using the Phoenix framework and creating simple RESTful applications using the Maru microframework</ListItem>
             <ListItem>Proficient knowledge of compiler design and lexer/parser generators. Experience with the internals of the TypeScript compiler and some experience with LLVM.</ListItem>
             <ListItem>Fluent use of scripting languages such as Python. Some experience with machine learning frameworks.</ListItem>
           </SkillList>
         </Section>
       </FirstColumn>
       <SecondColumn>
-        <Section title="Projects">
+        <Section icon={faWrench} title="Projects">
           <Project title="The Bolt Programming Language" url="https://github.com/boltlang/Bolt">
             A new programming language in the making which aims to speed up the
             process of creating and maintaining performant web apps.
@@ -241,28 +266,37 @@ export const Resume = () => (
             the C++ language. Currently awaiting further maintenance.
           </Project>
         </Section>
-        <Section title="Trivia">
+        <Section icon={faStamp} title="Certificates" padded>
+          <Subtitle>Enterpreneurial YouthStart Training</Subtitle>
+          Empowering young adults to pursue their dreams.
+          <CertDate>Obtained May 28, 2021</CertDate>
+        </Section>
+        <Section icon={faComments} title="Trivia">
           <List>
             <ListItem>
-              I don't own a driver's license. I don't like driving and I try to
-              keep a low ecological footprint. I'm quite used in taking the
+              I don't own a driver's license. I don't feel comfortable driving
+              and I try to keep a low ecological footprint. I'm used to taking the
               public transport.
             </ListItem>
             <ListItem>
-              Though it has been a while, I create my own music using a digital
-              piano connected to a DAW on my computer. I love sountrack music, and 
-              using some VSTi plugins I try to create movie-like atmospheres.
+              I create my own music using a digital piano connected to a DAW on
+              my computer. I love sountrack music, and using some VSTi plugins I try to
+              create movie-like atmospheres.
             </ListItem>
             <ListItem>
               I love martial arts and have followed several disciplines over the
               years, including Judo and Aikido. Currently, I'm keeping it
               simple and just go jogging.
             </ListItem>
+            <ListItem>
+              My favorite editor is Neovim, a fork of Vim. For debugging I tend
+              to use Visual Studio Code.
+            </ListItem>
           </List>
         </Section>
         <Footnote>
-          This resume was written with React. 
-          The source is freely available online at <Link to="https://github.com/samvv/resume" />.
+          This resume was written with React and TypeScript. 
+          The sources are freely available online at <Link to="https://github.com/samvv/resume" />.
         </Footnote>
       </SecondColumn>
     </Columns>

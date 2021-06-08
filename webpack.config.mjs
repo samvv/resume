@@ -22,6 +22,10 @@ export default {
         use: {
           loader: 'babel-loader',
         }
+      },
+      {
+        test: /\.(jpg|jpeg|gif|png)$/,
+        type: 'asset/resource'
       }
     ]
   }
