@@ -1,14 +1,15 @@
 
+import "../styles/global.css"
+
 import styled from "@emotion/styled";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome"
 import { faMapMarkerAlt, faEnvelope, faMobileAlt, faGlasses, faBriefcase, faWrench, faStamp, faComments } from "@fortawesome/free-solid-svg-icons"
-import mountainsImg from "../../assets/mountain-landscape.jpg"
-
-import Job from "./Job"
-import Link from "./Link"
-import Section from "./Section"
 import { IconProp } from "@fortawesome/fontawesome-svg-core";
-import {dateColor, defaultHeaderColor, fullNameColor, sectionBackgroundColor} from "../theme";
+
+import Job from "../components/Job"
+import Link from "../components/Link"
+import Section from "../components/Section"
+import { dateColor, defaultHeaderColor, fullNameColor, sectionBackgroundColor } from "../theme";
 
 const FullName = styled.h1`
 font-weight: bold;
@@ -187,8 +188,19 @@ const Project = ({ title, children, url }: ProjectProps) => (
   </ProjectWrapper>
 )
 
+const Wrapper = styled.div`
+position: relative;
+width: 21cm;
+height: 29.7cm;
+margin: auto;
+background-color: white;
+overflow: hidden;
+background-image: url('/mountain-landscape.jpg');
+background-position: bottom;
+`
+
 export const Resume = () => (
-  <>
+  <Wrapper>
     <Header
         fullName="Sam Vervaeck"
         title="Software developer"
@@ -299,7 +311,7 @@ export const Resume = () => (
         </Footnote>
       </SecondColumn>
     </Columns>
-  </>
+  </Wrapper>
 );
 
 export default Resume;

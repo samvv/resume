@@ -1,0 +1,18 @@
+
+@page {
+  size: 21cm;
+  margin: 0;
+}
+
+@font-face {
+  font-family: SourceSans;
+  src: url(/SourceSansPro-Regular.ttf);
+}
+
+body {
+  background-color: #DDD;
+  font-size: 14.5px;
+  margin: 0;
+  font-family: SourceSans;
+}
+

@@ -1,3 +1,9 @@
-lib/
-dist/
+# npm files
 node_modules/
+
+# Gatsby files
+.cache/
+/public/
+
+# Mac files
+.DS_Store
