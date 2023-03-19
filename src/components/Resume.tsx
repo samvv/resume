@@ -238,7 +238,7 @@ export const Resume = () => (
             <ListItem>Basic fluency in Haskell: using and defining monads, working with various packages, creating new typeclasses. Basic knowledge of category theory.</ListItem> 
             <ListItem>Some knowledge of Elixir/Erlang: using the Phoenix framework and creating simple RESTful applications using the Maru microframework</ListItem>
             <ListItem>Proficient knowledge of compiler design and lexer/parser generators. Experience with the internals of the TypeScript compiler and some experience with LLVM.</ListItem>
-            <ListItem>Fluent use of scripting languages such as Python. Some experience with machine learning frameworks.</ListItem>
+            <ListItem>Fluent use of scripting languages such as Python. Some experience with writing add-ons in C/C++ for scripting languages.</ListItem>
           </SkillList>
         </Section>
       </FirstColumn>
@@ -260,8 +260,8 @@ export const Resume = () => (
             tweaked to be very indentation-sensitive and can be used for a variety
             of use-cases.
           </Project>
-          <Project title="Zen C++ Libraries" url="https://github.com/ZenLibraries/ZenLibraries">
-            An attempt to create an alternative standard library for C++, taking
+          <Project title="Zen C++ Libraries" url="https://github.com/samvv/zen">
+            An attempt to fill in some blanks in the C++ standard library, taking
             ideas from Haskell and Rust and integrating them into version 17 of
             the C++ language. Currently awaiting further maintenance.
           </Project>
@@ -285,8 +285,7 @@ export const Resume = () => (
             </ListItem>
             <ListItem>
               I love martial arts and have followed several disciplines over the
-              years, including Judo and Aikido. Currently, I'm keeping it
-              simple and just go jogging.
+              years, including Judo and Aikido.
             </ListItem>
             <ListItem>
               My favorite editor is Neovim, a fork of Vim. For debugging I tend
