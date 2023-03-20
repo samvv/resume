@@ -1,18 +1,16 @@
 
-@page {
-  size: A4;
-  margin: 0;
-}
-
 @font-face {
   font-family: SourceSans;
   src: url(/SourceSansPro-Regular.ttf);
 }
 
-body {
-  background-color: #DDD;
-  font-size: 14.5px;
-  margin: 0;
-  font-family: SourceSans;
+html, body {
+  height: 100%;
 }
 
+body {
+  margin: 0;
+  font-size: 16px;
+  font-family: SourceSans;
+  background: linear-gradient(90deg, rgba(221,221,221,1) 0%, rgba(188,184,177,1) 100%);
+}
