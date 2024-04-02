@@ -54,7 +54,7 @@ font-size: 0.8em;
 `
 
 const JobDescription = styled.div`
-font-size: 0.8em;
+font-size: 0.9em;
 `
 
 interface JobProps {
@@ -226,7 +226,6 @@ padding: 1em;
 `
 
 const List = styled.ul`
-font-size: 0.9em;
 padding: 0;
 `
 
@@ -239,7 +238,6 @@ margin: 0.3em 0 0.3em 2em;
 
 const ProjectWrapper = styled.div`
 padding: 0.5em;
-font-size: 0.9em;
 `
 
 const Subtitle = styled.h4`
@@ -300,7 +298,7 @@ const globalStyles = css`
 
 body {
   background-color: #DDD;
-  font-size: 14.5px;
+  font-size: 13px;
 }
 `
 
@@ -324,9 +322,13 @@ export const Resume = () => (
           programming languages.
         </Introduction>
         <Section icon={faBriefcase} title="Experience">
-          <Job title="Open-source software developer" period="2015-present">
+          <Job title="Founder" period="January 2024">
+            Founder of Accelera, a freelancing firm specialising in
+            high-quality software development.
+          </Job>
+          <Job title="Open-source software developer" period="2015-2024">
             Creation and maintenance of many different projects that are mainly
-            hosted at GitHub. Primary focus on a new programming langugage for
+            hosted at GitHub. Primary focus on a new programming language for
             efficient app development called Bolt.
           </Job>
           <Job title="Junior software developer" period="August-September 2018">
@@ -350,17 +352,19 @@ export const Resume = () => (
         </Section>
         <Section icon={faGlasses} title="Skills">
           <SkillList>
-            <ListItem>Profound skills in creating user interfaces with ReactJS, including the new hooks system introduced in v16.8.0</ListItem>
+            <ListItem>Profound skills in creating user interfaces with ReactJS, including the hooks system introduced in v16.8.0</ListItem>
             <ListItem>Web development using NodeJS, MongoDB and Express</ListItem>
             <ListItem>Systems programming and game development in C++ and Rust. Fluent use of template metaprogramming facilities in C++ and type traits in Rust.</ListItem>
             <ListItem>Basic fluency in Haskell: using and defining monads, working with various packages, creating new typeclasses. Basic knowledge of category theory.</ListItem> 
             <ListItem>Some knowledge of Elixir/Erlang: using the Phoenix framework and creating simple RESTful applications using the Maru microframework</ListItem>
             <ListItem>Proficient knowledge of compiler design and lexer/parser generators. Experience with the internals of the TypeScript compiler and some experience with LLVM.</ListItem>
-            <ListItem>Fluent use of scripting languages such as Python. Some experience with writing add-ons in C/C++ for scripting languages.</ListItem>
           </SkillList>
         </Section>
       </FirstColumn>
       <SecondColumn>
+        <SkillList>
+          <ListItem>Fluent use of scripting languages such as Python. Some experience with writing add-ons in C/C++ for scripting languages.</ListItem>
+        </SkillList>
         <Section icon={faWrench} title="Projects">
           <Project title="The Bolt Programming Language" url="https://github.com/boltlang/Bolt">
             A new programming language in the making which aims to speed up the
