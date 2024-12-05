@@ -5,12 +5,10 @@
   "description": "My personal CV written in React",
   "main": "index.js",
   "scripts": {
-    "build": "gatsby build",
-    "develop": "gatsby develop",
-    "format": "prettier --write \"**/*.{js,jsx,ts,tsx,json,md,css}\"",
-    "start": "gatsby develop",
-    "serve": "gatsby serve",
-    "clean": "gatsby clean"
+    "dev": "vite",
+    "build": "tsc -b && vite build",
+    "lint": "eslint .",
+    "preview": "vite preview"
   },
   "repository": {
     "type": "git",
@@ -25,24 +23,26 @@
   "license": "UNLICENSED",
   "dependencies": {
     "@emotion/core": "^11.0.0",
-    "@emotion/react": "^11.11.4",
-    "@emotion/styled": "^11.11.5",
-    "@fortawesome/fontawesome-svg-core": "^6.5.1",
-    "@fortawesome/free-solid-svg-icons": "^6.5.1",
-    "@fortawesome/react-fontawesome": "^0.2.0",
-    "gatsby": "^5.13.3",
-    "gatsby-plugin-emotion": "^8.13.1",
-    "gatsby-plugin-image": "^3.13.1",
-    "gatsby-plugin-manifest": "^5.13.1",
-    "gatsby-plugin-sharp": "^5.13.1",
-    "gatsby-source-filesystem": "^5.13.1",
-    "gatsby-transformer-sharp": "^5.13.1",
-    "react": "^18.2.0",
-    "react-dom": "^18.2.0"
+    "@emotion/react": "^11.13.5",
+    "@emotion/styled": "^11.13.5",
+    "@fortawesome/fontawesome-svg-core": "^6.7.1",
+    "@fortawesome/free-solid-svg-icons": "^6.7.1",
+    "@fortawesome/react-fontawesome": "^0.2.2",
+    "react": "^18.3.1",
+    "react-dom": "^18.3.1"
   },
   "devDependencies": {
-    "@types/react": "^18.2.73",
-    "@types/react-dom": "^18.2.23"
+    "@eslint/js": "^9.16.0",
+    "@types/react": "^18.3.13",
+    "@types/react-dom": "^18.3.1",
+    "@vitejs/plugin-react-swc": "^3.7.2",
+    "eslint": "^9.16.0",
+    "eslint-plugin-react-hooks": "^5.0.0",
+    "eslint-plugin-react-refresh": "^0.4.16",
+    "globals": "^15.13.0",
+    "typescript": "^5.7.2",
+    "typescript-eslint": "^8.17.0",
+    "vite": "^6.0.2"
   },
   "bugs": {
     "url": "https://github.com/samvv/resume/issues"

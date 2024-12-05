@@ -2,7 +2,7 @@
 import "../styles/global.css"
 
 import styled from "@emotion/styled";
-import { Global, css } from "@emotion/react";
+import { Global, css, keyframes } from "@emotion/react";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome"
 import {
   faMapMarkerAlt,
@@ -12,10 +12,11 @@ import {
   faBriefcase,
   faWrench,
   faStamp,
-  faComments
+  faComments,
+  faGraduationCap,
+  faMapPin
 } from "@fortawesome/free-solid-svg-icons"
 import { IconProp as FontAwesomeIconProp } from "@fortawesome/fontawesome-svg-core";
-import { Link as GatsbyLink } from "gatsby"
 
 const dateColor = '#777';
 const fullNameColor = '#EEE';
@@ -34,73 +35,56 @@ interface LinkProps {
 }
 
 const Link = ({ to, children, ...props }: LinkProps) => (
-  <GatsbyLink css={linkCss} {...props} to={to}>
+  <a css={linkCss} {...props} href={to}>
     {children === undefined ? to : children}
-  </GatsbyLink>
+  </a>
 )
 
-const JobWrapper = styled.div`
+const ItemWrapper = styled.div`
 margin: 1em;
 `
 
-const JobTitle = styled.h4`
+const ItemTitle = styled.h4`
 margin-bottom: 0;
 `
 
-const JobPeriod = styled.div`
+const ItemPeriod = styled.div`
 text-transform: uppercase;
 color: ${dateColor};
 font-size: 0.8em;
 `
 
-const JobDescription = styled.div`
+const ItemDescription = styled.div`
 font-size: 0.9em;
 `
 
-interface JobProps {
-  title: string;
-  period: string;
-  children: React.ReactNode;
-}
-
-const Job = ({ title, period, children }: JobProps) => (
-  <JobWrapper>
-    <JobTitle>{title}</JobTitle>
-    <JobPeriod>{period}</JobPeriod>
-    <JobDescription>{children}</JobDescription>
-  </JobWrapper>
-)
-
-interface SectionProps {
-  title: string;
-  children: React.ReactNode;
-  icon?: FontAwesomeIconProp;
-  padded?: boolean;
-  style?: React.CSSProperties
-}
-
-const SectionTitle = styled.h3`
-margin: 0;
-color: white;
-background-color: #8f858c;
-padding: 1em;
+const ItemLocation = styled.div`
+font-size: 0.8em;
 `
 
-const Section = ({ title, children, icon, padded, ...props }: SectionProps) => {
-  const innerStyle: React.CSSProperties = {}
-  if (padded) {
-    innerStyle.padding = '1em';
-  }
+const ItemUrl = styled(Link)`
+color: black;
+display: block;
+margin: 0.3em 0;
+`
+
+interface ItemProps {
+  title: string;
+  period?: string;
+  children?: React.ReactNode;
+  location?: string;
+  url?: string;
+}
+
+function Item({ title, period, children, location, url }: ItemProps) {
   return (
-    <div {...props}>
-      <SectionTitle>
-        {icon ? <FontAwesomeIcon icon={icon} style={{ marginRight: '0.5em' }} /> : null}
-        {title}
-      </SectionTitle>
-      <div style={innerStyle}>
-        {children}
-      </div>
-    </div>
+    <ItemWrapper>
+      <ItemTitle>{title}</ItemTitle>
+      {location && <ItemLocation><FontAwesomeIcon icon={faMapPin} /> {location}</ItemLocation>}
+      {period && <ItemPeriod>{period}</ItemPeriod>}
+      {children && <ItemDescription>{children}</ItemDescription>}
+      {url && <ItemUrl to={url}>{url}</ItemUrl>}
+    </ItemWrapper>
   );
 }
 
@@ -225,11 +209,54 @@ const Introduction = styled.div`
 padding: 1em;
 `
 
-const List = styled.ul`
-padding: 0;
+interface SectionProps {
+  title: string;
+  children: React.ReactNode;
+  icon?: FontAwesomeIconProp;
+  padded?: boolean;
+  style?: React.CSSProperties
+}
+
+const SectionTitle = styled.h3`
+margin: 0;
+color: white;{
+}
+background-color: #8f858c;
+padding: 0.9em;
 `
 
-const SkillList = styled(List)`
+const Section = ({ title, children, icon, padded, ...props }: SectionProps) => {
+  const innerStyle: React.CSSProperties = {}
+  if (padded) {
+    innerStyle.padding = '1em';
+  }
+  return (
+    <div {...props}>
+      <SectionTitle>
+        {icon ? <FontAwesomeIcon icon={icon} style={{ marginRight: '0.5em' }} /> : null}
+        {title}
+      </SectionTitle>
+      <div style={innerStyle}>
+        {children}
+      </div>
+    </div>
+  );
+}
+
+type JobProps = Pick<ItemProps, 'title' | 'children' | 'period'>;
+
+function Job(props: JobProps) {
+  return <Item {...props} />
+}
+
+type DegreeProps = Pick<ItemProps, 'title' | 'children' | 'period' | 'location'>;
+
+function Degree(props: DegreeProps) {
+  return <Item {...props} />;
+}
+
+const List = styled.ul`
+padding: 0;
 `
 
 const ListItem = styled.li`
@@ -246,38 +273,25 @@ font-size: 1.2em;
 font-weight: bold;
 `
 
-const ProjectLink = styled(Link)`
-display: block;
-margin: 0.3em 0;
-`
-
 const Footnote = styled.div`
 position: absolute;
 transform: translateY(-50%);
 bottom: 0;
-padding: 0.5em;
-font-size: 0.8em;
+padding: 0 0.5em;
+font-size: 0.85em;
 `
 
-const CertDate = styled.em`
+const DateOrPeriod = styled.div`
+font-style: italic;
 display: block;
 color: ${dateColor};
 `
 
-interface ProjectProps {
-  title: string;
-  url?: string;
-  children: React.ReactNode;
+type ProjectProps = Pick<ItemProps, 'title' | 'children' | 'url'>;
+
+function Project(props: ProjectProps) {
+  return <Item {...props} />
 }
-
-
-const Project = ({ title, children, url }: ProjectProps) => (
-  <ProjectWrapper>
-    <Subtitle>{title}</Subtitle>
-    {children}
-    {url !== undefined ? <ProjectLink to={url} /> : null}
-  </ProjectWrapper>
-)
 
 const Wrapper = styled.div`
 position: relative;
@@ -317,14 +331,14 @@ export const Resume = () => (
         <Introduction>
           I'm a highly motivated computer programmer with a big interest in how
           programming languages contribute to the production of correct and
-          efficient software. I have expertise in many different proramming
+          efficient software. I have expertise in many different programming
           languages and environments, including the web and functional
           programming languages.
         </Introduction>
         <Section icon={faBriefcase} title="Experience">
-          <Job title="Founder" period="January 2024">
+          <Job title="Founder" period="January 2024 - September 2024">
             Founder of Accelera, a freelancing firm specialising in
-            high-quality software development.
+            software development.
           </Job>
           <Job title="Open-source software developer" period="2015-2024">
             Creation and maintenance of many different projects that are mainly
@@ -341,57 +355,60 @@ export const Resume = () => (
           <Job title="Junior software developer" period="June-September 2013">
             Fixing bugs as a student in PointCarré, a digital platform part of the
             Vrije Universiteit Brussel. Code was written in PHP and challanging to
-            refactor. 
+            refactor.
           </Job>
           <Job title="Administrative assistant" period="June-August 2011">
             Cleaning up a large SharePoint workplace of the Statoil Brussels office
             as a student in collaboration with someone doing the same work in the
             London office. Wrote a few tools in Visual Basic to help administration
-            and to speed up the cleaning process. 
+            and to speed up the cleaning process.
           </Job>
         </Section>
-        <Section icon={faGlasses} title="Skills">
-          <SkillList>
-            <ListItem>Profound skills in creating user interfaces with ReactJS, including the hooks system introduced in v16.8.0</ListItem>
-            <ListItem>Web development using NodeJS, MongoDB and Express</ListItem>
-            <ListItem>Systems programming and game development in C++ and Rust. Fluent use of template metaprogramming facilities in C++ and type traits in Rust.</ListItem>
-            <ListItem>Basic fluency in Haskell: using and defining monads, working with various packages, creating new typeclasses. Basic knowledge of category theory.</ListItem> 
-            <ListItem>Some knowledge of Elixir/Erlang: using the Phoenix framework and creating simple RESTful applications using the Maru microframework</ListItem>
-            <ListItem>Proficient knowledge of compiler design and lexer/parser generators. Experience with the internals of the TypeScript compiler and some experience with LLVM.</ListItem>
-          </SkillList>
+        <Section icon={faGraduationCap} title="Education">
+          <Degree title="ASO Latin-Mathematics" period="September 2005 - June 2014" location="KA Pitzemburg">
+          </Degree>
+          <Degree title="Bachelor of Science in Computer Science" period="September 2011 - December 2014" location="Vrije Universiteit Brussel">
+            Degree <b>not</b> obtained due to illness.
+          </Degree>
+        </Section>
+        <Section icon={faComments} title="Buzzwords" padded>
+          Rust ● TypeScript ● Python ● C/C++ ● Haskell ● Erlang/Elixir
+          ● Asynchronous Programming ● Functional Programming ● Protocols/Standards ● Compiler Design ● GameDev
+          ● React WebDev ● NextJS ● FastAPI ● NodeJS ● MongoDB ● PostgreSQL ● Linux ● Neovim ● Open Source
         </Section>
       </FirstColumn>
       <SecondColumn>
-        <SkillList>
-          <ListItem>Fluent use of scripting languages such as Python. Some experience with writing add-ons in C/C++ for scripting languages.</ListItem>
-        </SkillList>
         <Section icon={faWrench} title="Projects">
           <Project title="The Bolt Programming Language" url="https://github.com/boltlang/Bolt">
             A new programming language in the making which aims to speed up the
             process of creating and maintaining performant web apps.
-            Eventually, the project will also support native applications.
+          </Project>
+          <Project title="Mage" url="https://github.com/samvv/mage">
+            An experimental AST/CST/lexer/parser generator that uses minimal information 
+            to generate the bulk of a compiler frontend.
+          </Project>
+          <Project title="SwiftSync">
+            Commercial application to carefully synchronize many files across disks and the cloud.
           </Project>
           <Project title="Standard Collections Library for TypeScript" url="https://npmjs.com/scl">
             A collection of implementations of various algorithms and data
-            structures that are taught during the first years of a computer
+            structures that are taught during the first year of a computer
             science curriculum.
           </Project>
           <Project title="Templaty" url="https://github.com/samvv/Templaty">
             A code generator written in Python that reads a specification file
-            and interprets it according to a specific set of rules. Has been
-            tweaked to be very indentation-sensitive and can be used for a variety
-            of use-cases.
+            and interprets it according to a specific set of rules.
           </Project>
           <Project title="Zen C++ Libraries" url="https://github.com/samvv/zen">
             An attempt to fill in some blanks in the C++ standard library, taking
             ideas from Haskell and Rust and integrating them into version 17 of
-            the C++ language. Currently awaiting further maintenance.
+            the C++ language.
           </Project>
         </Section>
         <Section icon={faStamp} title="Certificates" padded>
           <Subtitle>Enterpreneurial YouthStart Training</Subtitle>
           Empowering young adults to pursue their dreams.
-          <CertDate>Obtained May 28, 2021</CertDate>
+          <DateOrPeriod>Obtained May 28, 2021</DateOrPeriod>
         </Section>
         <Section icon={faComments} title="Trivia">
           <List>
